@@ -2,6 +2,11 @@
 set -e
 echo "Install requirements..."
 pip3 install -r requirements.txt
+chmod u+x ./wiki_download.sh
+chmod u+x ./opus_download.sh
+chmod u+x ./oscar_download.sh
+
+apt-get install opus-tools
 echo "Start Data Download..."
 ./wiki_download.sh
 ./opus_download.sh

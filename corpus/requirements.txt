@@ -1,0 +1,14 @@
+opustools-pkg
+wiki_dump_reader
+lxml
+numpy
+tqdm
+stanza
+tokenizers
+pytorch
+torchvision
+torchaudio
+cudatoolkit==10.2
+pytorch
+transformers
+sentencepiece

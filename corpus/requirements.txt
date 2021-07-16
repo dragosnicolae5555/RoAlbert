@@ -8,7 +8,6 @@ tokenizers
 pytorch
 torchvision
 torchaudio
-cudatoolkit==10.2
-pytorch
+torch
 transformers
 sentencepiece

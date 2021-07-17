@@ -28,6 +28,7 @@ print("Extracting text from xml ...")
 cleaned_lines=[]
 with open("cleaned_lines.txt", "r") as grilled_cheese:
     l = grilled_cheese.readlines()
+    print(l)
     cleaned_lines.append(l)
 cleaned_lines=[item for sublist in cleaned_lines for item in sublist]
 print(len(cleaned_lines))

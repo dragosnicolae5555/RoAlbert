@@ -10,33 +10,22 @@ lines = []
 
 brk = 40000
 print("Extracting text from xml ...")
-# for title, text in tqdm(iterate('raw/wiki/rowiki-latest-pages-articles.xml')):
-#     #if brk<=0:
-#     #    break
-#     #brk-=1
-#
-#     text = cleaner.clean_text(text)
-#     cleaned_text, links = cleaner.build_links(text) # get text
-#     lines.extend(cleaned_text.splitlines())
-#
-# print("Cleaning extracted text ...")
-# sys.stdout.flush()
-# cleaned_lines, stats = my_cleaner.process(lines, min_line_length=30, disable_pbar=False)
-# with open("cleaned_lines.txt", "w") as output:
-#     output.write(str(cleaned_lines))
-#
-cleaned_lines=[]
-fileobj=open("cleaned_lines.txt")
-for line in fileobj:
-    cleaned_lines.append(line)
+for title, text in tqdm(iterate('raw/wiki/rowiki-latest-pages-articles.xml')):
+    #if brk<=0:
+    #    break
+    #brk-=1
 
-#print(cleaned_lines)
-# with open("cleaned_lines.txt", "r") as grilled_cheese:
-#     l = grilled_cheese.readlines()
-#     cleaned_lines.append(l)
-cleaned_lines=[item for sublist in cleaned_lines for item in sublist]
-print(len(cleaned_lines))
-# my_cleaner.print_stats(stats)
+    text = cleaner.clean_text(text)
+    cleaned_text, links = cleaner.build_links(text) # get text
+    lines.extend(cleaned_text.splitlines())
+
+print("Cleaning extracted text ...")
+sys.stdout.flush()
+cleaned_lines, stats = my_cleaner.process(lines, min_line_length=30, disable_pbar=False)
+with open("cleaned_lines.txt", "w") as output:
+    output.write(str(cleaned_lines))
+
+my_cleaner.print_stats(stats)
 
 print("Post-cleaning extracted text ...")
 forbidden_in = ["٭", "*", "†", "sp.", " f.", ".org", "oraș în", "localitate în", "comună în", "sat în", ".com", ".it", "o.o.", "px", ".jpg", ".gif", " n. ", ".bmp", "\\", "(n.", "\\left", "\\right", "(d.", "&nbsp;", "::", "[[", "//", ", un ora", "este un municipiu", "este o comun", "este un ora", "{{", "Period", "from:", "till:", "BackgroundColors", "canvas:", "color:", "width:", "align:", "fontsize:", "pos:", "File", "##", "==", "image:", "ISBN", "\\over", "\\math", "style", "border", "background", "Wikipedia", "id:", "bar:", "ImageSize", "height:", "DateFormat", "text:", "orientation:", "format:", "position:", "columns:", "id:", "value:", "legend:", "ScaleMajor", "increment:", "ScaleMinor", "increment:", "REDIRECT"]

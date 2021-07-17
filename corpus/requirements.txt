@@ -9,5 +9,6 @@ pytorch
 torchvision
 torchaudio
 torch
+gdown
 transformers
 sentencepiece

@@ -30,7 +30,7 @@ fileobj=open("cleaned_lines.txt")
 for line in fileobj:
     cleaned_lines.append(line.strip())
 
-print(cleaned_lines)
+#print(cleaned_lines)
 # with open("cleaned_lines.txt", "r") as grilled_cheese:
 #     l = grilled_cheese.readlines()
 #     cleaned_lines.append(l)

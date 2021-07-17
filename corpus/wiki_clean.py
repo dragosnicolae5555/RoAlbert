@@ -28,7 +28,7 @@ print("Extracting text from xml ...")
 cleaned_lines=[]
 fileobj=open("cleaned_lines.txt")
 for line in fileobj:
-    cleaned_lines.append(line.strip())
+    cleaned_lines.append(line)
 
 #print(cleaned_lines)
 # with open("cleaned_lines.txt", "r") as grilled_cheese:

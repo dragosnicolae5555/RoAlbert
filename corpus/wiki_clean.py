@@ -10,21 +10,24 @@ lines = []
 
 brk = 40000
 print("Extracting text from xml ...")
-for title, text in tqdm(iterate('raw/wiki/rowiki-latest-pages-articles.xml')):
-    #if brk<=0:
-    #    break
-    #brk-=1
-
-    text = cleaner.clean_text(text)
-    cleaned_text, links = cleaner.build_links(text) # get text
-    lines.extend(cleaned_text.splitlines())
-
-print("Cleaning extracted text ...")
-sys.stdout.flush()
-cleaned_lines, stats = my_cleaner.process(lines, min_line_length=30, disable_pbar=False)
-with open("cleaned_lines.txt", "w") as output:
-    output.write(str(cleaned_lines))
-my_cleaner.print_stats(stats)
+# for title, text in tqdm(iterate('raw/wiki/rowiki-latest-pages-articles.xml')):
+#     #if brk<=0:
+#     #    break
+#     #brk-=1
+#
+#     text = cleaner.clean_text(text)
+#     cleaned_text, links = cleaner.build_links(text) # get text
+#     lines.extend(cleaned_text.splitlines())
+#
+# print("Cleaning extracted text ...")
+# sys.stdout.flush()
+# cleaned_lines, stats = my_cleaner.process(lines, min_line_length=30, disable_pbar=False)
+# with open("cleaned_lines.txt", "w") as output:
+#     output.write(str(cleaned_lines))
+#
+ with open("cleaned_lines.txt", "r") as grilled_cheese:
+ 	cleaned_lines = grilled_cheese.readlines()
+# my_cleaner.print_stats(stats)
 
 
 print("Post-cleaning extracted text ...")

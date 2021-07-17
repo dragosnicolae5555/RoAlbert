@@ -4,7 +4,7 @@ import numpy as np
 
 class Cleaner():
    def __init__(self, num_threads=1): # right now, it's single threaded
-       self.num_threads = max(num_threads, int(multiprocessing.cpu_count()/2))
+       self.num_threads = max(num_threads, int(multiprocessing.cpu_count()*0.9))
 
        """
        S- ar putea să fie necesar să- l recitiţi.

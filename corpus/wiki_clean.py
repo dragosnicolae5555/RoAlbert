@@ -26,11 +26,15 @@ print("Extracting text from xml ...")
 #     output.write(str(cleaned_lines))
 #
 cleaned_lines=[]
-with open("cleaned_lines.txt", "r") as grilled_cheese:
-    l = grilled_cheese.readlines()
-    print(l)
-    cleaned_lines.append(l)
-cleaned_lines=[item for sublist in cleaned_lines for item in sublist]
+fileobj=open("cleaned_lines.txt")
+for line in fileobj:
+    cleaned_lines.append(line.strip())
+
+
+# with open("cleaned_lines.txt", "r") as grilled_cheese:
+#     l = grilled_cheese.readlines()
+#     cleaned_lines.append(l)
+# cleaned_lines=[item for sublist in cleaned_lines for item in sublist]
 print(len(cleaned_lines))
 # my_cleaner.print_stats(stats)
 

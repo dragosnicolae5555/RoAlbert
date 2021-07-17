@@ -25,7 +25,7 @@ print("Extracting text from xml ...")
 # with open("cleaned_lines.txt", "w") as output:
 #     output.write(str(cleaned_lines))
 #
- with open("cleaned_lines.txt", "r") as grilled_cheese:
+with open("cleaned_lines.txt", "r") as grilled_cheese:
  	cleaned_lines = grilled_cheese.readlines()
 # my_cleaner.print_stats(stats)
 

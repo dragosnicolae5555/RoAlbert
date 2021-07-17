@@ -22,6 +22,8 @@ for title, text in tqdm(iterate('raw/wiki/rowiki-latest-pages-articles.xml')):
 print("Cleaning extracted text ...")
 sys.stdout.flush()
 cleaned_lines, stats = my_cleaner.process(lines, min_line_length=30, disable_pbar=False)
+with open("cleaned_lines.txt", "w") as output:
+    output.write(str(cleaned_lines))
 my_cleaner.print_stats(stats)
 
 

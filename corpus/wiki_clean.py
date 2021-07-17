@@ -22,10 +22,8 @@ for title, text in tqdm(iterate('raw/wiki/rowiki-latest-pages-articles.xml')):
 print("Cleaning extracted text ...")
 sys.stdout.flush()
 cleaned_lines, stats = my_cleaner.process(lines, min_line_length=30, disable_pbar=False)
-with open("cleaned_lines.txt", "w") as output:
-    output.write(str(cleaned_lines))
-
 my_cleaner.print_stats(stats)
+
 
 print("Post-cleaning extracted text ...")
 forbidden_in = ["٭", "*", "†", "sp.", " f.", ".org", "oraș în", "localitate în", "comună în", "sat în", ".com", ".it", "o.o.", "px", ".jpg", ".gif", " n. ", ".bmp", "\\", "(n.", "\\left", "\\right", "(d.", "&nbsp;", "::", "[[", "//", ", un ora", "este un municipiu", "este o comun", "este un ora", "{{", "Period", "from:", "till:", "BackgroundColors", "canvas:", "color:", "width:", "align:", "fontsize:", "pos:", "File", "##", "==", "image:", "ISBN", "\\over", "\\math", "style", "border", "background", "Wikipedia", "id:", "bar:", "ImageSize", "height:", "DateFormat", "text:", "orientation:", "format:", "position:", "columns:", "id:", "value:", "legend:", "ScaleMajor", "increment:", "ScaleMinor", "increment:", "REDIRECT"]

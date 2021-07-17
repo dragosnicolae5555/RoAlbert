@@ -28,7 +28,6 @@ print("Extracting text from xml ...")
 with open("cleaned_lines.txt", "r") as grilled_cheese:
  	cleaned_lines = grilled_cheese.readlines()
 # my_cleaner.print_stats(stats)
-cleaned_lines=cleaned_lines[:19]
 
 print("Post-cleaning extracted text ...")
 forbidden_in = ["٭", "*", "†", "sp.", " f.", ".org", "oraș în", "localitate în", "comună în", "sat în", ".com", ".it", "o.o.", "px", ".jpg", ".gif", " n. ", ".bmp", "\\", "(n.", "\\left", "\\right", "(d.", "&nbsp;", "::", "[[", "//", ", un ora", "este un municipiu", "este o comun", "este un ora", "{{", "Period", "from:", "till:", "BackgroundColors", "canvas:", "color:", "width:", "align:", "fontsize:", "pos:", "File", "##", "==", "image:", "ISBN", "\\over", "\\math", "style", "border", "background", "Wikipedia", "id:", "bar:", "ImageSize", "height:", "DateFormat", "text:", "orientation:", "format:", "position:", "columns:", "id:", "value:", "legend:", "ScaleMajor", "increment:", "ScaleMinor", "increment:", "REDIRECT"]

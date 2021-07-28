@@ -172,7 +172,7 @@ def albert_run(token_input, model_input, vocab_size, model_dir, cased, pretraine
 # use albert_tokenizer_pretrained (pretrained=True) or albert_tokenizer (pretrained=False)
 vocab_size = 50000
 albert_run(token_input=token_input, model_input=model_input, vocab_size=vocab_size, model_dir=model_dir, cased=True,
-           pretrained=False, vocab_file='./vocab-spiece.model')
+           pretrained=False, vocab_file='./spiece.model')
 
 # to see tensorboard
 # - tensorboard --logdir log

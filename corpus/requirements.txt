@@ -3,11 +3,7 @@ wiki_dump_reader
 lxml
 numpy
 tqdm
-stanza
 tokenizers
-pytorch
-torchvision
-torchaudio
 torch
 gdown
 transformers

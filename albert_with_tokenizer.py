@@ -11,8 +11,8 @@ import glob
 from transformers import AlbertTokenizer, AlbertConfig, AlbertForMaskedLM, DataCollatorForLanguageModeling, SchedulerType
 
 # specify the path to your language data
-token_input = './dataset/*train.txt'  # for tokenizer if needed
-model_input = './dataset/text1-train.txt'  # for ALBERT
+token_input = './corpus/merged/train.txt'  # for tokenizer if needed
+model_input = './corpus/merged/train.txt' # for ALBERT
 # specify the path to tokenizer and model data
 model_dir = 'model'
 # specify the path to logs

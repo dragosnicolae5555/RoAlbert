@@ -41,6 +41,7 @@ def create_config(vocab_size, model_dir):
 # Tokenizer is trained on some language data
 # cased is used for up and low case. if cased=True then all will be converted to low case
 def create_tokenizer_with_training(input, vocab_size, model_dir, cased):
+    print("Create tokenizer with training")
     prefix = 'spiece'
     # creating BPE tokenizer for ALBERT model
     # character_coverage=0.9995 for languages with rich character set like Japanese or Chinese
@@ -69,6 +70,7 @@ def create_tokenizer_with_training(input, vocab_size, model_dir, cased):
 # Creating tokenizer for ALBERT from vocabulary
 # cased is used for up and low case. if cased=True then all will be converted to low case
 def create_tokenizer_from_vocabulary(cased, vocab_file):
+    print("create tokenizer")
     # Creating tokenizer for ALBERT from the scratch
     # creating BPE tokenizer for ALBERT model
     # character_coverage=0.9995 for languages with rich character set like Japanese or Chinese
@@ -91,6 +93,7 @@ def get_dataset(tokenizer, input, block_size):
 
 # Training model with required parameters
 def albert_train(model, dataset, batch_size, steps, num_warmup_steps, data_collator, save_steps, learning_rate, output_dir):
+    print("Start training")
     from transformers import Trainer, TrainingArguments, IntervalStrategy
 # training config
     training_args = TrainingArguments(
@@ -130,6 +133,7 @@ def albert_train(model, dataset, batch_size, steps, num_warmup_steps, data_colla
 # pretrained - train tokenizer or not
 # vocab_file - path to vocabulary file
 def albert_run(token_input, model_input, vocab_size, model_dir, cased, pretrained, vocab_file=None):
+    print("Start run")
     # config creating
     albert_config = create_config(vocab_size, model_dir)
     # model creating

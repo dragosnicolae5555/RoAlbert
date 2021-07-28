@@ -145,7 +145,8 @@ def albert_run(token_input, model_input, vocab_size, model_dir, cased, pretraine
     learning_rate = 1e-4
 
     # first run 900k steps
-    steps = int(9e5)
+    #steps = int(9e5)
+    steps = 10
     batch_size = 140
     block_size = 128
     num_warmup_steps = steps * 1e-2
@@ -153,7 +154,8 @@ def albert_run(token_input, model_input, vocab_size, model_dir, cased, pretraine
                  data_collator, save_steps, learning_rate, model_dir)
 
     # second run 100k steps
-    steps = int(1e5)
+    #steps = int(1e5)
+    steps = 10
     batch_size = 20
     block_size = 512
     num_warmup_steps = steps * 1e-2

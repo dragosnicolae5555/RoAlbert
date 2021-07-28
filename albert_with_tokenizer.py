@@ -167,14 +167,13 @@ def albert_run(token_input, model_input, vocab_size, model_dir, cased, pretraine
                  data_collator, save_steps, learning_rate, model_dir)
 
 
-if __name__== "__main__ ":
-    # run model ALBERT with required parameters and tokenizer
-    # switch cased (True) or uncased (False) on
-    # use albert_tokenizer_pretrained (pretrained=True) or albert_tokenizer (pretrained=False)
-    vocab_size = 50000
-    albert_run(token_input=token_input, model_input=model_input, vocab_size=vocab_size, model_dir=model_dir, cased=True,
-               pretrained=False, vocab_file='./vocab-spiece.model')
+# run model ALBERT with required parameters and tokenizer
+# switch cased (True) or uncased (False) on
+# use albert_tokenizer_pretrained (pretrained=True) or albert_tokenizer (pretrained=False)
+vocab_size = 50000
+albert_run(token_input=token_input, model_input=model_input, vocab_size=vocab_size, model_dir=model_dir, cased=True,
+           pretrained=False, vocab_file='./vocab-spiece.model')
 
-    # to see tensorboard
-    # - tensorboard --logdir log
-    #- browse at http://localhost:6006/
+# to see tensorboard
+# - tensorboard --logdir log
+#- browse at http://localhost:6006/

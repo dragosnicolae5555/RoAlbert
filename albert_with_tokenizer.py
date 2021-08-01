@@ -49,6 +49,8 @@ def create_tokenizer_with_training(input, vocab_size, model_dir, cased):
     sp.SentencePieceTrainer.train(input=glob.glob(input),
                                   model_prefix=prefix,
                                   vocab_size=vocab_size,
+                                  input_sentence_size=2000,
+                                  shuffle_input_sentence=True,
                                   model_type='bpe',
                                   character_coverage=0.9995,
                                   hard_vocab_limit=False)

@@ -212,5 +212,5 @@ second_run_checkpoint_dir = ''
 if not use_checkpoint:
     remove_log_and_model_dir()
 albert_run(token_input=token_input, model_input=model_input, vocab_size=vocab_size, model_dir=model_dir, cased=True,
-           pretrained=False, vocab_file='vocab-spiece.model', logging_steps=2000,
+           pretrained=False, vocab_file='vocab-spiece.model', logging_steps=5,
            checkpoints=Checkpoints(use_checkpoint, first_run_checkpoint_dir, second_run_checkpoint_dir))

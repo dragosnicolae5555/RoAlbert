@@ -23,7 +23,7 @@ Checkpoints = namedtuple('CheckPoints', 'use_checkpoint first_run_checkpoint_dir
 os.environ["CUDA_VISIBLE_DEVICES"] = '2'
 
 # specify the path to your language data
-token_input = './*train.txt'  # for tokenizer if needed
+token_input = './train.txt'  # for tokenizer if needed
 model_input = './valid.txt'  # for ALBERT
 # specify the path to tokenizer and model data
 model_dir = 'model'

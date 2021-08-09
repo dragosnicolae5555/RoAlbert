@@ -1,4 +1,3 @@
-
 # declare imports
 import sentencepiece as sp
 import transformers
@@ -9,13 +8,14 @@ from transformers import AlbertTokenizer, AlbertConfig, AlbertForMaskedLM, DataC
     SchedulerType
 from collections import namedtuple
 
+# used by the CUDA driver to decide what devices should be visible to CUDA
+#os.environ["CUDA_VISIBLE_DEVICES"] = '0,1'
+
+# create namedtuple for checkpoints
 Checkpoints = namedtuple('CheckPoints', 'use_checkpoint first_run_checkpoint_dir second_run_checkpoint_dir')
 
-# used by the CUDA driver to decide what devices should be visible to CUDA
-os.environ["CUDA_VISIBLE_DEVICES"] = '2'
-os.environ["LD_PRELOAD"] = "/usr/lib/libtcmalloc_minimal.so.4"
 # specify the path to your language data
-token_input = './train.txt'  # for tokenizer if needed
+token_input = './*-train.txt'  # for tokenizer if needed
 model_input = './valid.txt'  # for ALBERT
 # specify the path to tokenizer and model data
 model_dir = 'model'
@@ -163,12 +163,12 @@ def albert_run(token_input, model_input, vocab_size, model_dir, cased, pretraine
     data_collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm=True, mlm_probability=0.15)
 
     # parameters definition
-    save_steps = 2000
+    save_steps = 1  # 2000
     learning_rate = 1e-4
 
     # first run 900k steps
-    steps = int(9e5)
-    batch_size = 140
+    steps = 10  # int(9e5)
+    batch_size = 2  # 140
     block_size = 128
     run_subfolder = f'{model_dir}/first_run'
     num_warmup_steps = steps * 1e-2
@@ -177,8 +177,8 @@ def albert_run(token_input, model_input, vocab_size, model_dir, cased, pretraine
                  get_checkpoint(run_subfolder, checkpoints.use_checkpoint, checkpoints.first_run_checkpoint_dir))
 
     # second run 100k steps
-    steps = int(1e5)
-    batch_size = 20
+    steps = 5  # int(1e5)
+    batch_size = 2  # 20
     block_size = 512
     run_subfolder = f'{model_dir}/second_run'
     num_warmup_steps = steps * 1e-2
@@ -204,5 +204,5 @@ second_run_checkpoint_dir = ''
 if not use_checkpoint:
     remove_log_and_model_dir()
 albert_run(token_input=token_input, model_input=model_input, vocab_size=vocab_size, model_dir=model_dir, cased=True,
-           pretrained=False, vocab_file='vocab-spiece.model', logging_steps=5,
+           pretrained=False, vocab_file='vocab-spiece.model', logging_steps=1,
            checkpoints=Checkpoints(use_checkpoint, first_run_checkpoint_dir, second_run_checkpoint_dir))

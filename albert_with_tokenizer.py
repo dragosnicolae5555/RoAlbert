@@ -7,9 +7,12 @@ import glob
 from transformers import AlbertTokenizer, AlbertConfig, AlbertForMaskedLM, DataCollatorForLanguageModeling, \
     SchedulerType
 from collections import namedtuple
+import torch_optimizer as optim
+from transformers import LineByLineTextDataset
+from transformers import Trainer, TrainingArguments, IntervalStrategy
 
 # used by the CUDA driver to decide what devices should be visible to CUDA
-#os.environ["CUDA_VISIBLE_DEVICES"] = '0,1'
+os.environ["CUDA_VISIBLE_DEVICES"] = '0,1'
 
 # create namedtuple for checkpoints
 Checkpoints = namedtuple('CheckPoints', 'use_checkpoint first_run_checkpoint_dir second_run_checkpoint_dir')
@@ -52,7 +55,6 @@ def create_tokenizer_with_training(input, vocab_size, model_dir, cased):
     sp.SentencePieceTrainer.train(input=glob.glob(input),
                                   model_prefix='spiece',
                                   vocab_size=vocab_size,
-
                                   shuffle_input_sentence=True,
                                   model_type='bpe',
                                   character_coverage=0.9995,
@@ -88,7 +90,6 @@ def create_tokenizer_from_vocabulary(cased, vocab_file):
 
 # Method for dataset getting from input dir
 def get_dataset(tokenizer, input, block_size):
-    from transformers import LineByLineTextDataset
     return LineByLineTextDataset(
         tokenizer=tokenizer,
         file_path=input,
@@ -99,7 +100,6 @@ def get_dataset(tokenizer, input, block_size):
 # Training model with requered parameters
 def albert_train(model, dataset, batch_size, steps, num_warmup_steps, data_collator, save_steps, learning_rate,
                  output_dir, logging_steps, resume_from_checkpoint):
-    from transformers import Trainer, TrainingArguments, IntervalStrategy
     # trainig config
     training_args = TrainingArguments(
         output_dir=output_dir,
@@ -109,12 +109,11 @@ def albert_train(model, dataset, batch_size, steps, num_warmup_steps, data_colla
         per_device_train_batch_size=batch_size,
         save_steps=save_steps,
         prediction_loss_only=True,
-        logging_dir=f'log/steps_{steps}',
+        logging_dir=f'{log_dir}/steps_{steps}',
         logging_strategy=IntervalStrategy.STEPS,
         logging_steps=logging_steps
     )
     # LAMB optimizer
-    import torch_optimizer as optim
     optimizer = optim.Lamb(model.parameters(), lr=learning_rate)
     scheduler = transformers.get_scheduler(SchedulerType.LINEAR, optimizer, num_warmup_steps=num_warmup_steps,
                                            num_training_steps=steps)
@@ -189,6 +188,8 @@ def albert_run(token_input, model_input, vocab_size, model_dir, cased, pretraine
     albert_train(model, get_dataset(tokenizer, model_input, block_size), batch_size, steps, num_warmup_steps,
                  data_collator, save_steps, learning_rate, run_subfolder, logging_steps, checkpoint)
 
+    model.save_pretrained(model_dir)
+
 
 # run model ALBERT with required parameters and tokenizer
 # switch cased (True) or uncased (False) on
@@ -203,6 +204,11 @@ second_run_checkpoint_dir = ''
 
 if not use_checkpoint:
     remove_log_and_model_dir()
+# run without training the tokenizer
 albert_run(token_input=token_input, model_input=model_input, vocab_size=vocab_size, model_dir=model_dir, cased=True,
-           pretrained=False, vocab_file='vocab-spiece.model', logging_steps=1,
+           pretrained=False, vocab_file='vocab-spiece.model', logging_steps=3,
            checkpoints=Checkpoints(use_checkpoint, first_run_checkpoint_dir, second_run_checkpoint_dir))
+# run with training of the tokenizer
+# albert_run(token_input=token_input, model_input=model_input, vocab_size=vocab_size, model_dir=model_dir, cased=True,
+#            pretrained=True, logging_steps=3,
+#            checkpoints=Checkpoints(use_checkpoint, first_run_checkpoint_dir, second_run_checkpoint_dir))

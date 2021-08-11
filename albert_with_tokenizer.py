@@ -13,6 +13,7 @@ from transformers import Trainer, TrainingArguments, IntervalStrategy
 
 # used by the CUDA driver to decide what devices should be visible to CUDA
 os.environ["CUDA_VISIBLE_DEVICES"] = '0,1'
+os.environ["LD_PRELOAD"] = "/usr/lib/libtcmalloc_minimal.so.4"
 
 # create namedtuple for checkpoints
 Checkpoints = namedtuple('CheckPoints', 'use_checkpoint first_run_checkpoint_dir second_run_checkpoint_dir')
@@ -185,6 +186,7 @@ def albert_run(token_input, model_input, vocab_size, model_dir, cased, pretraine
         checkpoints.use_checkpoint and (checkpoints.first_run_checkpoint_dir == '' or
                                         checkpoints.first_run_checkpoint_dir != '' and
                                         checkpoints.second_run_checkpoint_dir != '') else None
+    print(checkpoint)
     albert_train(model, get_dataset(tokenizer, model_input, block_size), batch_size, steps, num_warmup_steps,
                  data_collator, save_steps, learning_rate, run_subfolder, logging_steps, checkpoint)
 
@@ -197,7 +199,7 @@ def albert_run(token_input, model_input, vocab_size, model_dir, cased, pretraine
 # to restore from a checkpoint set use_checkpoint = True the last checkpoint from model folder will be used, you can
 # set first_run_checkpoint_dir, second_run_checkpoint_dir to use a specific checkpoint (if set
 # only first_run_checkpoint_dir the first run will be restored and the second one will not)
-vocab_size = 10000
+vocab_size = 10000 #50000
 use_checkpoint = False
 first_run_checkpoint_dir = ''
 second_run_checkpoint_dir = ''
